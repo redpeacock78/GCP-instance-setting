@@ -1,0 +1,11 @@
+[Unit]
+Description=Post Google Drive Updates to Discord
+After=network-online.target
+
+[Service]
+ExecStart=/home/redpeacock78/gcp-instance-setting/sh/gdrive2discord.sh
+ExecStop=/bin/kill -INT ${MAINPID}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

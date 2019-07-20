@@ -1,0 +1,11 @@
+[Unit]
+Description=Post Google Drive Updates on Twitter via IFTTT
+After=network-online.target
+
+[Service]
+ExecStart=/home/redpeacock78/gcp-instance-setting/sh/gdrive2ifttt-twitter.sh
+ExecStop=/bin/kill -INT ${MAINPID}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
