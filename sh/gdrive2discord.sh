@@ -5,6 +5,7 @@
 ###PARAMETERS###
 TARGET_DIR="/home/redpeacock78/gdrive/handouts"
 IGNORE_DIR="/home/redpeacock78/gdrive/handouts/.git"
+GIT_LOG_DIR="/home/redpeacock78/gdrive/handouts/.git/objects"
 AUTHOR_NAME="$(cd ${TARGET_DIR} && git log -1 --pretty=format:'%aN')"
 GIT_MESSAGE="$(cd ${TARGET_DIR} && git log -1 --pretty=format:'%s')"
 GIT_HASH="$(cd ${TARGET_DIR} && git log -1 --pretty=format:'%h')"
@@ -18,12 +19,15 @@ WEBHOOK_URL="$(cat /home/redpeacock78/gcp-instance-setting/assets/webhooks.txt |
 ###TEXT###
 while true; do
     inotifywait -r \
-	        --exclude "${IGNORE_DIR}" \
 		-e CREATE \
-		-e MODIFY \
-		-e DELETE \
-		"${TARGET_DIR}" \
-    && sleep 60 \
+		"${GIT_LOG_DIR}" \
+    && inotifywait -r \
+                   -e CREATE \
+		   -e MODIFY \
+		   -e DELETE \
+		   --exclude "${IGNORE_DIR}" \
+		   "${TARGET_DIR}" \
+    && sleep 30 \
     && /usr/bin/echo -e '{ "attachments": [ { "fallback": "Required plain-text summary of the attachment.", "color": "#36a64f", "title": "[handouts] Update", "title_link": "'${GDRIVE_URL}'", "author_name": "'${AUTHOR_NAME}'", "author_link": "'${AUTHOR_LINK}'", "author_icon": "'${ICON_LINK}'", "text": "`'${GIT_HASH}'`: '${GIT_MESSAGE}'\\n- '${AUTHOR_NAME}'", "mrkdwn_in": [ "text" ], "ts": "'${TIME_STAMP}'" } ] }' \
     | curl -H "Accept: application/json" \
            -H "Content-type: application/json" \
