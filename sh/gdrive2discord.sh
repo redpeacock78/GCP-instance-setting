@@ -10,7 +10,8 @@ function dir_watch(){
                 -e MODIFY \
                 -e DELETE \
                 --exclude "${IGNORE_DIR}" \
-                "${TARGET_DIR}"
+                "${TARGET_DIR}" \
+    && exit 0
 }
 
 
@@ -20,10 +21,10 @@ TARGET_DIR="/home/redpeacock78/gdrive/handouts"
 IGNORE_DIR="/home/redpeacock78/gdrive/handouts/.git"
 ##GIT_INFOMATIONS##
 dir_watch && {
-AUTHOR_NAME="$(git log -1 --pretty=format:'%aN' -C ${TARGET_DIR})"
-GIT_MESSAGE="$(git log -1 --pretty=format:'%s' -C ${TARGET_DIR})"
-GIT_HASH="$(git log -1 --pretty=format:'%h' -C ${TARGEY_DIR})"
-TIME_STAMP="$(date -d "$(git log -1 --pretty=format:'%cD' -C ${TARGET_DIR})" +%s)"
+    AUTHOR_NAME="$(git log -1 --pretty=format:'%aN' -C ${TARGET_DIR})"
+    GIT_MESSAGE="$(git log -1 --pretty=format:'%s' -C ${TARGET_DIR})"
+    GIT_HASH="$(git log -1 --pretty=format:'%h' -C ${TARGEY_DIR})"
+    TIME_STAMP="$(date -d "$(git log -1 --pretty=format:'%cD' -C ${TARGET_DIR})" +%s)"
 }
 ##LINK(URL)S##
 AUTHOR_LINK="https://github.com/redpeacock78"
