@@ -1,1 +1,2 @@
-assets/webhooks.txt
+/assets/*
+!/assets/.gitkeep
