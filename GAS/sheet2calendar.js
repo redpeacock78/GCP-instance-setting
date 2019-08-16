@@ -13,7 +13,7 @@ function sheet2calendar() {
       thisevent = CalendarApp.getCalendarById(CALENDAR_ID).createAllDayEvent(myTitle, myDate, {
         description: myDescription
       });
-      sheet.getRange(i, 4).setValue("完了");
+      sheet.getRange(i, 4).setValue("Complete");
      }
    }
 }
