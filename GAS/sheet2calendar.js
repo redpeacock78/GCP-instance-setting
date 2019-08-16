@@ -2,7 +2,7 @@ var CALENDAR_ID = 'YOUR_CALENDAR_ID'
 var SHEET_NAME = 'YOUR_SHEET_NAME'
 
 // Duplicate line deletion within specified range.
-function remove_duplicates() {
+function rmDuplicates() {
    var sheet, lastRow, data;
    sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
    lastRow = sheet.getLastRow();
@@ -30,7 +30,6 @@ function sheet2calendar() {
 
 // Execute functions.
 function main() {
-   remove_duplicates();
+   rmDuplicates();
    sheet2calendar();
 }
-
