@@ -3,11 +3,11 @@ var SHEET_NAME = 'YOUR_SHEET_NAME'
 
 // Duplicate line deletion within specified range.
 function rmDuplicates() {
-   var sheet, lastRow, data;
-   sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-   lastRow = sheet.getLastRow();
-   data = sheet.getRange(2, 1, lastRow, 3);
-   data.removeDuplicates();
+  var sheet, lastRow, data;
+  sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+  lastRow = sheet.getLastRow();
+  data = sheet.getRange(2, 1, lastRow, 3);
+  data.removeDuplicates();
 }
 
 // Write on Google Calendar.
@@ -29,7 +29,7 @@ function sheet2calendar() {
 }
 
 // Execute functions.
-function main() {
+function doGet() {
    rmDuplicates();
    sheet2calendar();
 }
