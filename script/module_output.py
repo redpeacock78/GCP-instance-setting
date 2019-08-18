@@ -10,7 +10,10 @@ $ ./module_output.py FILE_NAME \
   > | sed '/^$/d' \
   > | sort \
   > | uniq \
-  > | xargs -L1 -I{} bash -c 'pip3 freeze | grep {}' > requirements.txt
+  > | xargs -L1 -I{} bash -c 'pip3 freeze | grep {}' \
+  > | cat - \
+  > | sort \
+  > | uniq > requirements.txt
 
 '''
 
