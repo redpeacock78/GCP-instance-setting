@@ -30,8 +30,17 @@ function GET_DATA(){
 function DATA2CSV(){
     ##PARAMERTER##
     LINE="${@}"
+    function yearsDecision(){
+        todayMonth="$(LANG="C" date "+%-m")"
+        inputMonth="$(LANG="C" date -d $(echo ${LINE} | awk '{print $1}') "+%-m")"
+        if [[ "${inputMonth}" -lt "${todayMonth}" ]]; then
+          year="$(LANG="C" date -d "1 years" "+%Y")"
+        else
+          year="$(LANG="C" date "+%Y")"
+        fi
+    }
     title="$(echo ${LINE} | awk '{print $3}')"
-    date="$(LANG="C" date -d $(echo ${LINE} | awk '{print $1}') "+%Y/%m/%d")"
+    date="$(yearsDecision && LANG="C" date -d $(echo ${LINE} | awk '{print $1}') "+%m/%d" | sed "s#^#${year}/#g")"
     description="$(echo ${LINE} | awk '{print $2,$4}')"
     ##MAIN##
     {
