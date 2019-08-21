@@ -31,7 +31,7 @@ function DATA2CSV(){
     ##FUNCTION##
     function yearsDecision(){
         declare extractedDate="$(echo ${LINE} | awk '{print $1}')"
-	declare dueDate="$(LANG="C" date -d "${extractedDate}" "+%m/%d")"
+        declare dueDate="$(LANG="C" date -d "${extractedDate}" "+%m/%d")"
         declare todayMonth="$(LANG="C" date "+%-m")"
         declare inputMonth="$(LANG="C" date -d "${extractedDate}" "+%-m")"
         if [[ "${inputMonth}" -lt "${todayMonth}" ]]; then
