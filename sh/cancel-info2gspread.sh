@@ -30,18 +30,19 @@ function GET_DATA(){
 function DATA2CSV(){
     ##FUNCTION##
     function yearsDecision(){
-        declare dueDate="$(echo ${LINE} | awk '{print $1}')"
+        declare extractedDate="$(echo ${LINE} | awk '{print $1}')"
+	declare dueDate="$(LANG="C" date -d "${extractedDate}" "+%m/%d")"
         declare todayMonth="$(LANG="C" date "+%-m")"
-        declare inputMonth="$(LANG="C" date -d "${dueDate}" "+%-m")"
+        declare inputMonth="$(LANG="C" date -d "${extractedDate}" "+%-m")"
         if [[ "${inputMonth}" -lt "${todayMonth}" ]]; then
-          declare currentYear="$(LANG="C" date -d "1 years" "+%Y")"
+          declare nextYear="$(LANG="C" date -d "1 years" "+%Y")"
           {
-           echo "${currentYear}/$(LANG="C" date -d "${dueDate}" "+%m/%d")"
+           echo "${nextYear}/${dueDate}"
           }
         else
-          declare nextYear="$(LANG="C" date "+%Y")"
+          declare currentYear="$(LANG="C" date "+%Y")"
           {
-           echo "${nextYear}/$(LANG="C" date -d "${dueDate}" "+%m/%d")"
+           echo "${currentYear}/${dueDate}"
           }
         fi
     }
