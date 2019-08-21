@@ -28,20 +28,28 @@ function GET_DATA(){
     }
 }
 function DATA2CSV(){
-    ##PARAMERTER##
-    LINE="${@}"
+    ##FUNCTION##
     function yearsDecision(){
-        todayMonth="$(LANG="C" date "+%-m")"
-        inputMonth="$(LANG="C" date -d $(echo ${LINE} | awk '{print $1}') "+%-m")"
+        declare dueDate="$(echo ${LINE} | awk '{print $1}')"
+        declare todayMonth="$(LANG="C" date "+%-m")"
+        declare inputMonth="$(LANG="C" date -d "${dueDate}" "+%-m")"
         if [[ "${inputMonth}" -lt "${todayMonth}" ]]; then
-          year="$(LANG="C" date -d "1 years" "+%Y")"
+          declare currentYear="$(LANG="C" date -d "1 years" "+%Y")"
+          {
+           echo "${currentYear}/$(LANG="C" date -d "${dueDate}" "+%m/%d")"
+          }
         else
-          year="$(LANG="C" date "+%Y")"
+          declare nextYear="$(LANG="C" date "+%Y")"
+          {
+           echo "${nextYear}/$(LANG="C" date -d "${dueDate}" "+%m/%d")"
+          }
         fi
     }
-    title="$(echo ${LINE} | awk '{print $3}')"
-    date="$(yearsDecision && LANG="C" date -d $(echo ${LINE} | awk '{print $1}') "+%m/%d" | sed "s#^#${year}/#g")"
-    description="$(echo ${LINE} | awk '{print $2,$4}')"
+    ##PAREMETER##
+    declare LINE="${@}"
+    declare title="$(echo ${LINE} | awk '{print $3}')"
+    declare date="$(yearsDecision)"
+    declare description="$(echo ${LINE} | awk '{print $2,$4}')"
     ##MAIN##
     {
      echo "${title},${date},${description}"
