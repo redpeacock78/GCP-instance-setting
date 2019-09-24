@@ -21,10 +21,10 @@ while true; do
 	        -e DELETE \
 	        --exclude "${IGNORE_DIR}" \
 	        "${TARGET_DIR}"
-    AUTHOR_NAME="$(git log -1 --pretty=format:'%aN' -C ${TARGET_DIR})"
-    GIT_MESSAGE="$(git log -1 --pretty=format:'%s' -C ${TARGET_DIR})"
-    GIT_HASH="$(git log -1 --pretty=format:'%h' -C ${TARGEY_DIR})"
-    TIME_STAMP="$(date -d "$(git log -1 --pretty=format:'%cD' -C ${TARGET_DIR})" +%s)"
+    AUTHOR_NAME="$(git -C ${TARGET_DIR} log -1 --pretty=format:'%aN')"
+    GIT_MESSAGE="$(git -C ${TARGET_DIR} log -1 --pretty=format:'%s')"
+    GIT_HASH="$(git -C ${TARGET_DIR} log -1 --pretty=format:'%h')"
+    TIME_STAMP="$(date -d "$(git -C ${TARGET_DIR} log -1 --pretty=format:'%cD')" +%s)"
     /usr/bin/echo -e '{ "attachments": [ { "fallback": "Required plain-text summary of the attachment.", "color": "#36a64f", "title": "[handouts] Update", "title_link": "'${GDRIVE_URL}'", "author_name": "'${AUTHOR_NAME}'", "author_link": "'${AUTHOR_LINK}'", "author_icon": "'${ICON_LINK}'", "text": "`'${GIT_HASH}'`: '${GIT_MESSAGE}'\\n- '${AUTHOR_NAME}'", "mrkdwn_in": [ "text" ], "ts": "'${TIME_STAMP}'" } ] }' \
     | curl -H "Accept: application/json" \
            -H "Content-type: application/json" \
