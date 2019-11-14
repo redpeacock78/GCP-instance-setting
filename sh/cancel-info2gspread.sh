@@ -48,7 +48,7 @@ function DATA2CSV(){
     }
     ##PAREMETER##
     declare LINE="${@}"
-    declare title="$(echo ${LINE} | awk '{print $3}')"
+    declare title="$(echo ${LINE} | awk '{print $3}' | sed 's/~/・/')"
     declare date="$(yearsDecision)"
     declare description="$(echo ${LINE} | awk '{print $2,$4}')"
     ##MAIN##

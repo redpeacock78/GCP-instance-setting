@@ -10,6 +10,11 @@ WEBHOOK_URL="$(cat /home/redpeacock78/gcp-instance-setting/assets/webhooks.txt |
 
 
 ###TEXT###
+if [[ -z "$(ls /home/redpeacock78/gdrive)" ]]; then
+  google-drive-ocamlfuse -o allow_other /home/redpeacock78/gdrive
+else
+  :
+fi && \
 while true; do
     function dir_watch(){
         inotifywait -r \
