@@ -17,7 +17,7 @@ pyasn1-modules==0.2.1
 pyasn1==0.4.2
 requests-unixsocket==0.1.5
 requests==2.21.0
-rsa==4.0
+rsa==4.7
 six==1.12.0
 systemd-python==234
 uritemplate==3.0.0
